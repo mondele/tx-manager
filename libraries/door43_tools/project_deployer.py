@@ -31,7 +31,7 @@ class ProjectDeployer(object):
     def __del__(self):
         self.close()
 
-    def deploy_revision_to_door43(self, build_log_key):
+    def deploy_revision_to_door43(self, build_log_key, is_redeploy = False):
         """
         Deploys a single revision of a project to door43.org
         :param string build_log_key:
@@ -178,7 +178,7 @@ class ProjectDeployer(object):
         return True
 
     def multipart_master_merge(self, s3_commit_key, resource_type, download_key, output_dir, source_dir, start,
-                               template_file):
+                               template_file, is_redeploy = False):
         prefix = download_key + '/'
         App.door43_s3_handler().download_dir(prefix, source_dir)  # get previous templated files
         source_dir = os.path.join(source_dir, download_key)
